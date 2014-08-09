@@ -18,6 +18,7 @@ namespace Station12
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        
 
         public Game1()
             : base()
