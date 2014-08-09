@@ -11,14 +11,31 @@ using Microsoft.Xna.Framework.GamerServices;
 
 namespace Station12
 {
+    enum gameState
+    {
+        MAIN,
+        EXIT
+    }
     /// <summary>
     /// This is the main type for your game
     /// </summary>
     public class Game1 : Game
     {
+        #region variables
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        
+        MouseHelper mouse;
+        Camera2D camera;
+
+        gameState gs;
+        Menu menu;
+
+        //float camZoom;
+        int screenX;
+        int screenY;
+        bool fullScreen;
+
+        #endregion
 
         public Game1()
             : base()
@@ -37,6 +54,24 @@ namespace Station12
         {
             // TODO: Add your initialization logic here
 
+            //camZoom = 0.5f;
+            screenX = 1024;
+            screenY = 768;
+            fullScreen = true;
+
+            gs = gameState.MAIN;
+            mouse = new MouseHelper();
+            IsMouseVisible = true;
+            camera = new Camera2D(new Vector2(screenX, screenY));
+
+            // screen resolution
+            graphics.PreferredBackBufferWidth = screenX;
+            graphics.PreferredBackBufferHeight = screenY;
+            graphics.ApplyChanges();
+            if (fullScreen)
+                graphics.ToggleFullScreen();
+
+            menu = new Menu(screenX, screenY, "main", Content);
             base.Initialize();
         }
 
@@ -68,11 +103,16 @@ namespace Station12
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (gs == gameState.EXIT)
                 Exit();
 
-            // TODO: Add your update logic here
+            if (mouse.LeftButtonNew())
+                if (menu.whatPanel(mouse.Location) != null)
+                {
+                    gs = menu.whatPanel(mouse.Location).onLeftClick(gs);
+                }
 
+            mouse.Update();
             base.Update(gameTime);
         }
 
@@ -84,6 +124,9 @@ namespace Station12
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
+            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.AnisotropicWrap, DepthStencilState.None, RasterizerState.CullNone, null, camera.Translation);
+            menu.drawMenus(spriteBatch, camera);
+            spriteBatch.End();
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);

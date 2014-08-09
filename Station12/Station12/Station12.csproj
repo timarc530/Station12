@@ -36,6 +36,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Game1.cs" />
+    <Compile Include="Helpers\Camera2D.cs" />
+    <Compile Include="Helpers\KeyboardHelper.cs" />
+    <Compile Include="Helpers\MouseHelper.cs" />
+    <Compile Include="Menus\imp\ExitButton.cs" />
+    <Compile Include="Menus\Menu.cs" />
+    <Compile Include="Menus\Panel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -60,10 +66,14 @@
       <Link>SDL.dll</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\exit_button.png" />
     <Content Include="Icon.ico" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Content\" />
+    <None Include="Content\exit_button.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
