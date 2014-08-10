@@ -39,6 +39,7 @@
     <Compile Include="Helpers\Camera2D.cs" />
     <Compile Include="Helpers\KeyboardHelper.cs" />
     <Compile Include="Helpers\MouseHelper.cs" />
+    <Compile Include="media\Sprite.cs" />
     <Compile Include="Menus\imp\AboutButton.cs" />
     <Compile Include="Menus\imp\ExitButton.cs" />
     <Compile Include="Menus\imp\OptionsButton.cs" />
