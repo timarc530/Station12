@@ -8,40 +8,22 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
 using SmallNet;
+
 #endregion
 
 namespace Station12
 {
-    enum GameState
-    {
-        MAIN,
-        EXIT
-    }
     /// <summary>
     /// This is the main type for your game
     /// </summary>
     public class Game1 : Game
     {
-        #region variables
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        MouseHelper mouse;
-        Camera2D camera;
-     
-        GameState gs;
-        Menu menu;
 
-        //float camZoom;
-        int screenX;
-        int screenY;
-        bool fullScreen;
-
-        #endregion
-
-        #region snet
-        BaseHost<StationClientModel, StationHostModel> host;
+        //net 
         BaseClient<StationClientModel> client;
-        #endregion
+        BaseHost<StationClientModel, StationHostModel> host;
 
         public Game1()
             : base()
@@ -58,34 +40,14 @@ namespace Station12
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
 
-            //net
             host = new BaseHost<StationClientModel, StationHostModel>();
-            host.IpAddress = "0.0.0.0";
             host.start();
+
+
             client = new BaseClient<StationClientModel>();
-            client.connectTo(SNetUtil.getLocalIp(), "loc");
+            client.connectTo(SNetUtil.getLocalIp(), "local");
 
-
-            //camZoom = 0.5f;
-            screenX = 1024;
-            screenY = 768;
-            fullScreen = false;
-
-            gs = GameState.MAIN;
-            mouse = new MouseHelper();
-            IsMouseVisible = true;
-            camera = new Camera2D(new Vector2(screenX, screenY));
-
-            // screen resolution
-            graphics.PreferredBackBufferWidth = screenX;
-            graphics.PreferredBackBufferHeight = screenY;
-            graphics.ApplyChanges();
-            if (fullScreen)
-                graphics.ToggleFullScreen();
-
-            menu = new Menu(screenX, screenY, "main", Content);
             base.Initialize();
         }
 
@@ -107,8 +69,7 @@ namespace Station12
         /// </summary>
         protected override void UnloadContent()
         {
-            this.client.shutdown();
-            this.host.shutdown();
+            // TODO: Unload any non ContentManager content here
         }
 
         /// <summary>
@@ -118,16 +79,12 @@ namespace Station12
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (gs == GameState.EXIT)
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            if (mouse.LeftButtonNew())
-                if (menu.whatPanel(mouse.Location) != null)
-                {
-                    gs = menu.whatPanel(mouse.Location).onLeftClick(gs);
-                }
+            this.client.update(gameTime);
+            this.host.update(gameTime);
 
-            mouse.Update();
             base.Update(gameTime);
         }
 
@@ -139,13 +96,7 @@ namespace Station12
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.AnisotropicWrap, DepthStencilState.None, RasterizerState.CullNone, null, camera.Translation);
-            menu.drawMenus(spriteBatch, camera);
-            spriteBatch.End();
-            // TODO: Add your drawing code here
-
-            client.ClientModel.draw(spriteBatch);
-
+            this.client.ClientModel.draw(spriteBatch);
 
             base.Draw(gameTime);
         }
