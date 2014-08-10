@@ -39,6 +39,7 @@
     <Compile Include="Helpers\Camera2D.cs" />
     <Compile Include="Helpers\KeyboardHelper.cs" />
     <Compile Include="Helpers\MouseHelper.cs" />
+    <Compile Include="shared\ColorPalette.cs" />
     <Compile Include="shared\SimpleMotionObject.cs" />
     <Compile Include="shared\Sprite.cs" />
     <Compile Include="Menus\imp\AboutButton.cs" />

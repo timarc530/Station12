@@ -75,7 +75,7 @@ namespace Station12
             //camZoom = 0.5f;
             screenX = 1024;
             screenY = 768;
-            fullScreen = false;
+            fullScreen = true;
 
             gs = GameState.MAIN;
             mouse = new MouseHelper();
@@ -104,15 +104,21 @@ namespace Station12
 
 
             tobj = new SimpleMotionObject(Content.Load<Texture2D>("100x100 Box White.png"));
-            Vector2 origin = new Vector2(300, 300);
+            Vector2 origin = new Vector2(screenX/2, screenY/4);
+            tobj.Sprite.Scale *= .5f;
+            tobj.Sprite.autoCenter();
             float angle = 0;
+            double ecA = screenX*.45f;
+            double ecB = 80;
+            double ecPhi = 0;
             tobj.setMotionFunction((spr, time) =>
             {
-                float radius = 100;
+                
+                double f = (ecA*ecB) / Math.Sqrt(Math.Pow(ecB*Math.Cos(angle), 2) + Math.Pow(ecA*Math.Sin(angle),2));
                 angle += .01f;
-                Vector2 add = radius * new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
+                Vector2 traj = new Vector2((float)Math.Cos(angle+ecPhi), (float)Math.Sin(angle+ecPhi));
+                Vector2 add = ((float)f) * traj;
                 spr.Position = origin + add;
-                spr.Scale =Vector2.One* (add.X/radius);
             });
 
         }
@@ -155,7 +161,7 @@ namespace Station12
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Blue);
 
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.AnisotropicWrap, DepthStencilState.None, RasterizerState.CullNone, null, camera.Translation);
             menu.drawMenus(spriteBatch, camera);

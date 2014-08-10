@@ -35,6 +35,10 @@ namespace Station12.shared
             this.Depth = depth;
         }
 
+        public void autoCenter()
+        {
+            this.Origin = new Vector2(this.Image.Width / 2, this.Image.Height / 2);
+        }
 
         /// <summary>
         /// Draws the Sprite with its current configuration.
