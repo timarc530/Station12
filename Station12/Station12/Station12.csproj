@@ -103,6 +103,9 @@
     <Content Include="Content\play_button.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\stars1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Icon.ico" />
     <Content Include="lib\log4net.dll" />
     <Content Include="lib\SmallNet.dll" />
