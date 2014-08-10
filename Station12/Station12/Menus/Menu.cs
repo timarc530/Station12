@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+
 namespace Station12
 {
     class Menu
@@ -24,8 +25,16 @@ namespace Station12
             panels = new List<Panel>();
             if (type.Contains("main"))
             {
-                Panel p = new ExitButton("exit",screenX/3,screenY*8/10,100,45,true);
-                p.setTexture(content.Load<Texture2D>("exit_button"));
+                Texture2D img = content.Load<Texture2D>("exit_button");
+                Panel p = new ExitButton("EXIT", screenX / 2, screenY * 8 / 10, 2, img, true);
+                panels.Add(p);
+
+                img = content.Load<Texture2D>("about_button");
+                p = new AboutButton("ABOUT", screenX / 2, screenY * 6 / 10, 2, img, true);
+                panels.Add(p);
+
+                img = content.Load<Texture2D>("options_button");
+                p = new AboutButton("ABOUT", screenX / 2, screenY * 4 / 10, 2, img, true);
                 panels.Add(p);
             }
            
@@ -34,9 +43,9 @@ namespace Station12
 
         }
 
-        public void addPanel(String name, int x, int y, int width, int height, bool active)
+        public void addPanel(String name, int x, int y, float scale, Texture2D img, bool active)
         {
-            panels.Add(new Panel(name,x,y,width,height,active));
+            panels.Add(new Panel(name,x,y,scale,img,active));
         }
 
         public Panel whatPanel(Vector2 pos)

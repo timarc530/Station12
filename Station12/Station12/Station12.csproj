@@ -39,7 +39,9 @@
     <Compile Include="Helpers\Camera2D.cs" />
     <Compile Include="Helpers\KeyboardHelper.cs" />
     <Compile Include="Helpers\MouseHelper.cs" />
+    <Compile Include="Menus\imp\AboutButton.cs" />
     <Compile Include="Menus\imp\ExitButton.cs" />
+    <Compile Include="Menus\imp\OptionsButton.cs" />
     <Compile Include="Menus\Menu.cs" />
     <Compile Include="Menus\Panel.cs" />
     <Compile Include="Program.cs" />
@@ -66,14 +68,16 @@
       <Link>SDL.dll</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\exit_button.png" />
-    <Content Include="Icon.ico" />
-  </ItemGroup>
-  <ItemGroup />
-  <ItemGroup>
-    <None Include="Content\exit_button.xnb">
+    <Content Include="Content\about_button.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
+    <Content Include="Content\exit_button.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\options_button.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

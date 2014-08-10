@@ -8,10 +8,10 @@ using Microsoft.Xna.Framework.Content;
 
 namespace Station12
 {
-    class ExitButton : Panel
-    {
+    class AboutButton : Panel
+        {
         #region Constructor
-        public ExitButton(String name, int x, int y, float scale, Texture2D img, bool active)
+        public AboutButton(String name, int x, int y, float scale, Texture2D img, bool active)
             : base(name, x, y, scale, img, active) { }
 
         #endregion

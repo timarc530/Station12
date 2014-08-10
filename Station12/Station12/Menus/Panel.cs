@@ -20,12 +20,17 @@ namespace Station12
         #endregion
 
         #region Constructor
-        public Panel(String name,int x, int y, int width, int height, bool active)
+
+        // use when x and y describe the center of the panel.
+        public Panel(String name, int x, int y, float scale, Texture2D img, bool active)
         {
             this.name = name;
             this.active = active;
+            this.img = img;
             panelObjs = new List<Panel>();
-            posData = new Rectangle(x, y, width, height);
+            int xOffset = (int)(scale * img.Width / 2);
+            int yOffset = (int)(scale * img.Height / 2);
+            posData = new Rectangle((x - xOffset),( y - yOffset), (int)(scale * img.Width), (int)(scale * img.Height));
         }
         #endregion
 
@@ -85,7 +90,7 @@ namespace Station12
             }
         }
 
-        public virtual gameState onLeftClick(gameState gs)
+        public virtual GameState onLeftClick(GameState gs)
         {
             return gs;
         }

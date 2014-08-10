@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.GamerServices;
 
 namespace Station12
 {
-    enum gameState
+    enum GameState
     {
         MAIN,
         EXIT
@@ -26,8 +26,8 @@ namespace Station12
         SpriteBatch spriteBatch;
         MouseHelper mouse;
         Camera2D camera;
-
-        gameState gs;
+     
+        GameState gs;
         Menu menu;
 
         //float camZoom;
@@ -59,7 +59,7 @@ namespace Station12
             screenY = 768;
             fullScreen = true;
 
-            gs = gameState.MAIN;
+            gs = GameState.MAIN;
             mouse = new MouseHelper();
             IsMouseVisible = true;
             camera = new Camera2D(new Vector2(screenX, screenY));
@@ -103,7 +103,7 @@ namespace Station12
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (gs == gameState.EXIT)
+            if (gs == GameState.EXIT)
                 Exit();
 
             if (mouse.LeftButtonNew())
