@@ -28,10 +28,11 @@ namespace Station12
         SpriteBatch spriteBatch;
         MouseHelper mouse;
         Camera2D camera;
-     
+        Random random;
+
+
         GameState gs;
         Menu menu;
-
         //float camZoom;
         int screenX;
         int screenY;
@@ -44,8 +45,7 @@ namespace Station12
         BaseClient<StationClientModel> client;
         #endregion
 
-        SimpleMotionObject tobj;
-
+        Scene menuBackground;
 
         public Game1()
             : base()
@@ -71,11 +71,13 @@ namespace Station12
             client = new BaseClient<StationClientModel>();
             client.connectTo(SNetUtil.getLocalIp(), "loc");
 
+            //random
+            random = new Random();
 
             //camZoom = 0.5f;
             screenX = 1024;
             screenY = 768;
-            fullScreen = true;
+            fullScreen = false;
 
             gs = GameState.MAIN;
             mouse = new MouseHelper();
@@ -102,24 +104,53 @@ namespace Station12
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            menuBackground = new Scene();
 
-            tobj = new SimpleMotionObject(Content.Load<Texture2D>("100x100 Box White.png"));
-            Vector2 origin = new Vector2(screenX/2, screenY/4);
-            tobj.Sprite.Scale *= .5f;
-            tobj.Sprite.autoCenter();
-            float angle = 0;
-            double ecA = screenX*.45f;
-            double ecB = 80;
-            double ecPhi = 0;
-            tobj.setMotionFunction((spr, time) =>
+            //make planet
+            SimpleMotionObject planet = new SimpleMotionObject(Content.Load<Texture2D>("planet1.png"));
+            planet.Sprite.Position = new Vector2(screenX * .35f, screenY / 2);
+            planet.Sprite.autoCenter();
+            planet.Sprite.Scale *= .8f;
+            menuBackground.addObject(planet);
+
+
+            //make clouds
+            SimpleMotionObject[] nebulas = new SimpleMotionObject[4];
+            Texture2D cloudImg = Content.Load<Texture2D>("nebula1.png");
+            for (int i = 0; i < nebulas.Length; i++)
             {
+                nebulas[i] = new SimpleMotionObject(cloudImg);
+                nebulas[i].Sprite.Position = new Vector2(screenX * (float)random.NextDouble(), screenY * (float)random.NextDouble());
+                nebulas[i].Sprite.Color = ColorPalette.NEBULA;
+                nebulas[i].Sprite.autoCenter();
+                nebulas[i].Sprite.Depth = .5f;
+                nebulas[i].Sprite.Scale *= 2;
+                float dir = Math.Sign((float)random.NextDouble()-.5);
+                float speed = dir*(float)random.NextDouble() * .003f;
+                nebulas[i].setMotionFunction((spr, time) => {
+                    spr.Rotation += speed;
+                });
+                menuBackground.addObject(nebulas[i]);
+            }
+
+
+            //tobj = new SimpleMotionObject(Content.Load<Texture2D>("100x100 Box White.png"));
+            //Vector2 origin = new Vector2(screenX/2, screenY/4);
+            //tobj.Sprite.Scale *= .5f;
+            //tobj.Sprite.autoCenter();
+            //float angle = 0;
+            //double ecA = screenX*.45f;
+            //double ecB = 80;
+            //double ecPhi = 0;
+            //tobj.setMotionFunction((spr, time) =>
+            //{
                 
-                double f = (ecA*ecB) / Math.Sqrt(Math.Pow(ecB*Math.Cos(angle), 2) + Math.Pow(ecA*Math.Sin(angle),2));
-                angle += .01f;
-                Vector2 traj = new Vector2((float)Math.Cos(angle+ecPhi), (float)Math.Sin(angle+ecPhi));
-                Vector2 add = ((float)f) * traj;
-                spr.Position = origin + add;
-            });
+            //    double f = (ecA*ecB) / Math.Sqrt(Math.Pow(ecB*Math.Cos(angle), 2) + Math.Pow(ecA*Math.Sin(angle),2));
+            //    angle += .01f;
+            //    Vector2 traj = new Vector2((float)Math.Cos(angle+ecPhi), (float)Math.Sin(angle+ecPhi));
+            //    Vector2 add = ((float)f) * traj;
+            //    spr.Position = origin + add;
+            //});
 
         }
 
@@ -149,8 +180,8 @@ namespace Station12
                     gs = menu.whatPanel(mouse.Location).onLeftClick(gs);
                 }
 
+            menuBackground.update(gameTime);
 
-            tobj.update(gameTime);
             mouse.Update();
             base.Update(gameTime);
         }
@@ -161,14 +192,15 @@ namespace Station12
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Blue);
+            GraphicsDevice.Clear(ColorPalette.SPACE);
 
-            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.AnisotropicWrap, DepthStencilState.None, RasterizerState.CullNone, null, camera.Translation);
+            spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.NonPremultiplied, SamplerState.AnisotropicWrap, DepthStencilState.None, RasterizerState.CullNone, null, camera.Translation);
             menu.drawMenus(spriteBatch, camera);
 
 
 
-            tobj.draw(spriteBatch);
+            menuBackground.draw(spriteBatch);
+            
             spriteBatch.End();
             // TODO: Add your drawing code here
 

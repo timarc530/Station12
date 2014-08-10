@@ -41,6 +41,7 @@
     <Compile Include="Helpers\MouseHelper.cs" />
     <Compile Include="Menus\imp\PlayButton.cs" />
     <Compile Include="shared\ColorPalette.cs" />
+    <Compile Include="shared\Scene.cs" />
     <Compile Include="shared\SimpleMotionObject.cs" />
     <Compile Include="shared\Sprite.cs" />
     <Compile Include="Menus\imp\AboutButton.cs" />
@@ -89,7 +90,13 @@
     <Content Include="Content\exit_button.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\nebula1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\options_button.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\planet1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\play_button.png">

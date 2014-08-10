@@ -8,6 +8,6 @@ namespace Station12.shared
     class ColorPalette
     {
         public static Color SPACE = new Color(6, 8, 12);
-
+        public static Color NEBULA = new Color(new Color(32, 75, 38), 80);
     }
 }
