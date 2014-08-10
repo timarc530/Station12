@@ -95,6 +95,7 @@
     <Content Include="lib\WindowsGL\Tao.Sdl.dll" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="lib\WindowsGL\OpenTK.dll.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
