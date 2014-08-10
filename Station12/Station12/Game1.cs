@@ -44,7 +44,6 @@ namespace Station12
             host = new BaseHost<StationClientModel, StationHostModel>();
             host.start();
 
-
             client = new BaseClient<StationClientModel>();
             client.connectTo(SNetUtil.getLocalIp(), "local");
 
