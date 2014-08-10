@@ -25,17 +25,28 @@ namespace Station12
             panels = new List<Panel>();
             if (type.Contains("main"))
             {
-                Texture2D img = content.Load<Texture2D>("exit_button");
-                Panel p = new ExitButton("EXIT", screenX / 2, screenY * 8 / 10, 2, img, true);
-                panels.Add(p);
+                float scale = 2f;
 
-                img = content.Load<Texture2D>("about_button");
-                p = new AboutButton("ABOUT", screenX / 2, screenY * 6 / 10, 2, img, true);
+                Texture2D img = content.Load<Texture2D>("play_button");
+                Panel p = new PlayButton("PLAY", img.Width, screenY - img.Height, scale, img, true);
                 panels.Add(p);
 
                 img = content.Load<Texture2D>("options_button");
-                p = new AboutButton("ABOUT", screenX / 2, screenY * 4 / 10, 2, img, true);
+                p = new AboutButton("ABOUT", img.Width * 3, screenY - img.Height, scale, img, true);
                 panels.Add(p);
+
+                img = content.Load<Texture2D>("about_button");
+                p = new AboutButton("ABOUT", img.Width * 5, screenY - img.Height, scale, img, true);
+                panels.Add(p);
+
+                img = content.Load<Texture2D>("exit_button");
+                p = new ExitButton("EXIT", img.Width * 7, screenY - img.Height, scale, img, true);
+                panels.Add(p);
+
+                
+               
+
+
             }
            
 

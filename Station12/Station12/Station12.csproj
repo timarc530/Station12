@@ -39,6 +39,7 @@
     <Compile Include="Helpers\Camera2D.cs" />
     <Compile Include="Helpers\KeyboardHelper.cs" />
     <Compile Include="Helpers\MouseHelper.cs" />
+    <Compile Include="Menus\imp\PlayButton.cs" />
     <Compile Include="shared\ColorPalette.cs" />
     <Compile Include="shared\SimpleMotionObject.cs" />
     <Compile Include="shared\Sprite.cs" />
@@ -91,6 +92,9 @@
     <Content Include="Content\options_button.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\play_button.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Icon.ico" />
     <Content Include="lib\log4net.dll" />
     <Content Include="lib\SmallNet.dll" />
@@ -102,6 +106,7 @@
     <Content Include="lib\WindowsGL\Tao.Sdl.dll" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="lib\WindowsGL\OpenTK.dll.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

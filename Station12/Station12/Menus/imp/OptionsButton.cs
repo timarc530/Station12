@@ -19,7 +19,7 @@ namespace Station12
         #region Left Mouse Button
         public override GameState onLeftClick(GameState gs)
         { 
-            return GameState.EXIT;
+            return GameState.MAIN;
         }
         #endregion
     }
