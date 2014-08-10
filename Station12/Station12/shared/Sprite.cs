@@ -6,9 +6,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 
-namespace Station12.media
+namespace Station12.shared
 {
-    class Sprite
+    public class Sprite
     {
         public Texture2D Image { get; set; }
         public Vector2 Position { get; set; }

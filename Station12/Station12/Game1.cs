@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
 using SmallNet;
+using Station12.shared;
 #endregion
 
 namespace Station12
@@ -42,6 +43,9 @@ namespace Station12
         BaseHost<StationClientModel, StationHostModel> host;
         BaseClient<StationClientModel> client;
         #endregion
+
+        SimpleMotionObject tobj;
+
 
         public Game1()
             : base()
@@ -98,7 +102,19 @@ namespace Station12
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+
+            tobj = new SimpleMotionObject(Content.Load<Texture2D>("100x100 Box White.png"));
+            Vector2 origin = new Vector2(300, 300);
+            float angle = 0;
+            tobj.setMotionFunction((spr, time) =>
+            {
+                float radius = 100;
+                angle += .01f;
+                Vector2 add = radius * new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
+                spr.Position = origin + add;
+                spr.Scale =Vector2.One* (add.X/radius);
+            });
+
         }
 
         /// <summary>
@@ -127,6 +143,8 @@ namespace Station12
                     gs = menu.whatPanel(mouse.Location).onLeftClick(gs);
                 }
 
+
+            tobj.update(gameTime);
             mouse.Update();
             base.Update(gameTime);
         }
@@ -141,6 +159,10 @@ namespace Station12
 
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.AnisotropicWrap, DepthStencilState.None, RasterizerState.CullNone, null, camera.Translation);
             menu.drawMenus(spriteBatch, camera);
+
+
+
+            tobj.draw(spriteBatch);
             spriteBatch.End();
             // TODO: Add your drawing code here
 
