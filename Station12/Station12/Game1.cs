@@ -77,7 +77,7 @@ namespace Station12
             //camZoom = 0.5f;
             screenX = 1024;
             screenY = 768;
-            fullScreen = false;
+            fullScreen = true;
 
             gs = GameState.MAIN;
             mouse = new MouseHelper();
@@ -108,9 +108,12 @@ namespace Station12
 
             //make planet
             SimpleMotionObject planet = new SimpleMotionObject(Content.Load<Texture2D>("planet1.png"));
-            planet.Sprite.Position = new Vector2(screenX * .35f, screenY / 2);
+            Vector2 planetOrigin = new Vector2(screenX * .35f, screenY / 2);
+            planet.Sprite.Depth = 0.6f;
+            planet.Sprite.Position = planetOrigin;
             planet.Sprite.autoCenter();
             planet.Sprite.Scale *= .8f;
+            int radius = Math.Min(planet.Sprite.Image.Height,planet.Sprite.Image.Width)/2;
             menuBackground.addObject(planet);
 
 
@@ -134,23 +137,42 @@ namespace Station12
             }
 
 
-            //tobj = new SimpleMotionObject(Content.Load<Texture2D>("100x100 Box White.png"));
-            //Vector2 origin = new Vector2(screenX/2, screenY/4);
-            //tobj.Sprite.Scale *= .5f;
-            //tobj.Sprite.autoCenter();
-            //float angle = 0;
-            //double ecA = screenX*.45f;
-            //double ecB = 80;
-            //double ecPhi = 0;
-            //tobj.setMotionFunction((spr, time) =>
-            //{
-                
-            //    double f = (ecA*ecB) / Math.Sqrt(Math.Pow(ecB*Math.Cos(angle), 2) + Math.Pow(ecA*Math.Sin(angle),2));
-            //    angle += .01f;
-            //    Vector2 traj = new Vector2((float)Math.Cos(angle+ecPhi), (float)Math.Sin(angle+ecPhi));
-            //    Vector2 add = ((float)f) * traj;
-            //    spr.Position = origin + add;
-            //});
+            SimpleMotionObject tobj = new SimpleMotionObject(Content.Load<Texture2D>("100x100 Box White.png"));
+            menuBackground.addObject(tobj);
+            tobj.Sprite.Depth = 0.7f;
+            tobj.Sprite.Scale *= .5f;
+            tobj.Sprite.autoCenter();
+            float angle = 0;
+            double ecA = screenX * .45f;
+            double ecB = 80;
+            double ecPhi = 0;
+            int flip = 0;
+           
+            tobj.setMotionFunction((spr, time) =>
+            {
+                Vector2 oldpos = spr.Position;
+                bool transition;
+                double f = (ecA * ecB) / Math.Sqrt(Math.Pow(ecB * Math.Cos(angle), 2) + Math.Pow(ecA * Math.Sin(angle), 2));
+                angle += .01f;
+                Vector2 traj = new Vector2((float)Math.Cos(angle + ecPhi), (float)Math.Sin(angle + ecPhi));
+                Vector2 add = ((float)f) * traj;
+                spr.Position = planetOrigin + add;
+                float v1 = (oldpos - planetOrigin).Length();
+                float v2 = (spr.Position - planetOrigin).Length();
+                transition = ((v1 > 200) ^ (v2 > 200));
+                if (transition)
+                {
+                    flip++;
+                    flip = flip % 4;
+                }
+
+                if (flip ==3)
+                {
+                    spr.Depth = 0.4f;
+                }
+                else
+                    spr.Depth = 0.7f;
+            });
 
         }
 
