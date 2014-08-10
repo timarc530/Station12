@@ -13,6 +13,7 @@ namespace Station12
         #region Variables
         protected String name;
         protected bool active;
+        protected bool visible;
         protected Texture2D img = null;
         protected static Texture2D defaultImg;
         protected Rectangle posData;
@@ -22,10 +23,11 @@ namespace Station12
         #region Constructor
 
         // use when x and y describe the center of the panel.
-        public Panel(String name, int x, int y, float scale, Texture2D img, bool active)
+        public Panel(String name, int x, int y, float scale, Texture2D img, bool active, bool visible)
         {
             this.name = name;
             this.active = active;
+            this.visible = visible;
             this.img = img;
             panelObjs = new List<Panel>();
             int xOffset = (int)(scale * img.Width / 2);
@@ -48,7 +50,7 @@ namespace Station12
         {
             Panel ans = null;
             Panel subAns = null;
-            if (active)
+            if (active && visible)
             {
                 if (posData.Contains(new Rectangle((int)pos.X, (int)pos.Y, 1, 1)))
                 {
@@ -67,7 +69,7 @@ namespace Station12
 
         public virtual void drawPanel(SpriteBatch spr, Camera2D camera, float layer)
         {
-            if (active)
+            if (visible)
             {
 
                 int x = (int)((posData.X - (int)(camera.Position.X)) / camera.Scale);
@@ -103,6 +105,16 @@ namespace Station12
         public String toString()
         {
             return this.name;
+        }
+
+        public void setVisible(bool val)
+        {
+            this.visible = val;
+        }
+
+        public void setActive(bool val)
+        {
+            this.active = val;
         }
  
     }
