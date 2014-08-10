@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
-
+using SmallNet;
 
 #endregion
 
@@ -20,6 +20,10 @@ namespace Station12
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+
+        //net 
+        BaseClient<StationClientModel> client;
+        BaseHost<StationClientModel, StationHostModel> host;
 
         public Game1()
             : base()
@@ -36,7 +40,13 @@ namespace Station12
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+
+            host = new BaseHost<StationClientModel, StationHostModel>();
+            host.start();
+
+
+            client = new BaseClient<StationClientModel>();
+            client.connectTo(SNetUtil.getLocalIp(), "local");
 
             base.Initialize();
         }
@@ -72,7 +82,8 @@ namespace Station12
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
+            this.client.update(gameTime);
+            this.host.update(gameTime);
 
             base.Update(gameTime);
         }
@@ -85,7 +96,7 @@ namespace Station12
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            this.client.ClientModel.draw(spriteBatch);
 
             base.Draw(gameTime);
         }

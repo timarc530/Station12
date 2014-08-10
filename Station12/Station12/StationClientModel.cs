@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using SmallNet;
+using Microsoft.Xna;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+
 namespace Station12
 {
-    class StationClientModel : DefaultClientModel
+    class StationClientModel : DefaultClientModel<Player>
     {
         public override void destroy()
         {
@@ -36,6 +40,11 @@ namespace Station12
         {
            // throw new NotImplementedException();
             return true;
+        }
+
+
+        public void draw(SpriteBatch spriteBatch)
+        {
         }
     }
 }
