@@ -8,18 +8,22 @@ using Microsoft.Xna.Framework.Content;
 
 namespace Station12
 {
-    class ExitButton : Panel
+    class BackButton : Panel
     {
-        #region Constructor
-        public ExitButton(String name, int x, int y, float scale, Texture2D img, bool active, bool visible)
-            : base(name, x, y, scale, img, active, visible) { }
+        GameState gs;
+    #region Constructor
+        public BackButton(String name, int x, int y, float scale, Texture2D img, bool active, bool visible, GameState gs)
+            : base(name, x, y, scale, img, active, visible) 
+        {
+            this.gs = gs;
+        }
 
         #endregion
 
         #region Left Mouse Button
         public override GameState onLeftClick(GameState gs)
         { 
-            return GameState.EXIT;
+            return this.gs;
         }
         #endregion
     }

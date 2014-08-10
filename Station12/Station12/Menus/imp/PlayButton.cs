@@ -11,8 +11,8 @@ namespace Station12
     class PlayButton : Panel
     {
     #region Constructor
-        public PlayButton(String name, int x, int y, float scale, Texture2D img, bool active)
-            : base(name, x, y, scale, img, active) { }
+        public PlayButton(String name, int x, int y, float scale, Texture2D img, bool active, bool visible)
+            : base(name, x, y, scale, img, active, visible) { }
 
         #endregion
 

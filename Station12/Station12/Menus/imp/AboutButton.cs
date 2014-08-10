@@ -11,8 +11,8 @@ namespace Station12
     class AboutButton : Panel
         {
         #region Constructor
-        public AboutButton(String name, int x, int y, float scale, Texture2D img, bool active)
-            : base(name, x, y, scale, img, active) { }
+        public AboutButton(String name, int x, int y, float scale, Texture2D img, bool active, bool visible)
+            : base(name, x, y, scale, img, active, visible) { }
 
         #endregion
 
