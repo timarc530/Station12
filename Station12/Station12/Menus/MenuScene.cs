@@ -19,6 +19,7 @@ namespace Station12.Menus
             : base()
         {
             this.random = new Random();
+            this.BackgroundColor = ColorPalette.SPACE;
         }
 
         public void init(int screenX, int screenY, ContentManager Content)

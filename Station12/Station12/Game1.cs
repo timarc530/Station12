@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using SmallNet;
 using Station12.shared;
 using Station12.Menus;
+using Station12.game;
 #endregion
 
 namespace Station12
@@ -17,7 +18,8 @@ namespace Station12
     enum GameState
     {
         MAIN,
-        EXIT
+        EXIT,
+        INGAME
     }
     /// <summary>
     /// This is the main type for your game
@@ -47,6 +49,8 @@ namespace Station12
         #endregion
 
         MenuScene menuBackground;
+        GameScene gameScene;
+       
 
         public Game1()
             : base()
@@ -80,7 +84,7 @@ namespace Station12
             screenY = 768;
             fullScreen = false;
 
-            gs = GameState.MAIN;
+            gs = GameState.INGAME;
             mouse = new MouseHelper();
             IsMouseVisible = true;
             camera = new Camera2D(new Vector2(screenX, screenY));
@@ -107,9 +111,13 @@ namespace Station12
 
             menuBackground = new MenuScene();
             menuBackground.init(screenX, screenY, Content);
+            
 
 
+            gameScene = new GameScene(Content);
+            gameScene.generateLevel();
 
+           
         }
 
         /// <summary>
@@ -138,7 +146,8 @@ namespace Station12
                     gs = menu.whatPanel(mouse.Location).onLeftClick(gs);
                 }
 
-            menuBackground.update(gameTime);
+            getActiveScene().update(gameTime);
+
 
             camera.Update(gameTime);
             mouse.Update();
@@ -151,15 +160,14 @@ namespace Station12
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(ColorPalette.SPACE);
+            GraphicsDevice.Clear(getActiveScene().BackgroundColor);
 
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.NonPremultiplied, SamplerState.AnisotropicWrap, DepthStencilState.None, RasterizerState.CullNone, null, camera.Translation);
             menu.drawMenus(spriteBatch, camera);
 
 
+            getActiveScene().draw(spriteBatch);
 
-            menuBackground.draw(spriteBatch);
-            
             spriteBatch.End();
             // TODO: Add your drawing code here
 
@@ -168,5 +176,19 @@ namespace Station12
 
             base.Draw(gameTime);
         }
+
+        public Scene getActiveScene()
+        {
+            if (this.gs == GameState.INGAME)
+            {
+                return this.gameScene;
+            }
+            else if (this.gs == GameState.MAIN)
+            {
+                return this.menuBackground;
+            }
+            else return this.menuBackground; //todo, make better emergency default.
+        }
+
     }
 }

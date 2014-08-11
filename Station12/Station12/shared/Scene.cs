@@ -6,12 +6,15 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 namespace Station12.shared
 {
-    class Scene
+    public class Scene
     {
         private List<SceneObject> objs;
 
+        public Color BackgroundColor { get; set; }
+
         public Scene()
         {
+            this.BackgroundColor = Color.Orange;
             this.objs = new List<SceneObject>();
         }
 
