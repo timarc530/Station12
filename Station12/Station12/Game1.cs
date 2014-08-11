@@ -166,9 +166,9 @@ namespace Station12
             GraphicsDevice.Clear(getActiveScene().BackgroundColor);
 
             //draw menu
-            spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.NonPremultiplied, SamplerState.AnisotropicWrap, DepthStencilState.None, RasterizerState.CullNone, null, camera.Translation);
+            spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.NonPremultiplied);
             {
-                menu.drawMenus(spriteBatch, camera);
+                menu.drawMenus(spriteBatch);
             }
             spriteBatch.End();
 

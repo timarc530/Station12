@@ -68,10 +68,10 @@ namespace Station12
             return ans;
         }
 
-        public void drawMenus(SpriteBatch spr,Camera2D camera)
+        public void drawMenus(SpriteBatch spr)
         {
             foreach (Panel p in panels)
-                p.drawPanel(spr, camera,0.9f); // top layer is 0, bottom layer is 1 (the map)
+                p.drawPanel(spr,0.9f); // top layer is 0, bottom layer is 1 (the map)
                                                // each sub-panel is drawn at a lower layer.
                                                // max is 9 layers
         }

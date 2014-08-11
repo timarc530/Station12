@@ -67,15 +67,17 @@ namespace Station12
             return ans;
         }
 
-        public virtual void drawPanel(SpriteBatch spr, Camera2D camera, float layer)
+        
+        public virtual void drawPanel(SpriteBatch spr, float layer)
         {
             if (visible)
             {
-
-                int x = (int)((posData.X - (int)(camera.Position.X)) / camera.Scale);
-                int y = (int)((posData.Y - (int)(camera.Position.Y)) / camera.Scale);
-                int w = (int)(posData.Width / camera.Scale);
-                int h = (int)(posData.Height / camera.Scale);
+                /* NOTE: Camera removed.
+                 */
+                int x = (int)(posData.X);
+                int y = (int)(posData.Y);
+                int w = (int)(posData.Width);
+                int h = (int)(posData.Height);
                 Rectangle r = new Rectangle(x, y, w, h);
 
                 if (img == null)
@@ -85,7 +87,7 @@ namespace Station12
                     //spr.Draw(img, r, Color.White);
 
                 foreach (Panel p in panelObjs)
-                    p.drawPanel(spr, camera, layer - 0.1f);
+                    p.drawPanel(spr, layer - 0.1f);
 
                 
                 
