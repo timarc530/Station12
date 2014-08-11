@@ -12,15 +12,38 @@ namespace Station12.game
     class GameScene : Scene
     {
         private ContentManager Content;
+        private Camera2D camera;
+        private KeyboardHelper keyboard;
+        private MouseHelper mouse;
 
-        public GameScene(ContentManager Content)
+        private CameraScrollController cameraController;
+
+        public GameScene(ContentManager Content,int screenX, int screenY, Camera2D camera, KeyboardHelper keyboard, MouseHelper mouse)
             : base()
         {
+            this.camera = camera;
             this.Content = Content;
+            this.keyboard = keyboard;
+            this.mouse = mouse;
+            this.cameraController = new CameraScrollController(camera,screenX, screenY, mouse, keyboard);
         }
 
         public void generateLevel()
         {
+
+            //generate a start room
+            LevelGeometry level = new LevelGeometry(Content);
+
+            this.addObject(level);
         }
+
+        public override void update(GameTime time)
+        {
+
+            //camera controls
+            this.cameraController.update(time);
+            base.update(time);
+        }
+
     }
 }

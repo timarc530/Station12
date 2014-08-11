@@ -16,7 +16,9 @@ namespace Station12.shared
         public float Rotation { get; set; }
         public Vector2 Origin { get; set; }
         public Vector2 Scale { get; set; }
-        public float Depth { get; set; }
+
+        private float depth;
+        public float Depth { get { return this.depth * 2; } set { this.depth = value/2f; } }
 
         public Sprite(Texture2D image) : this(image, Vector2.Zero) { }
         public Sprite(Texture2D image, Vector2 position) : this(image, position, Color.White) { }
@@ -47,7 +49,7 @@ namespace Station12.shared
         /// <param name="spriteBatch"></param>
         public void draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Image, Position, null, Color, Rotation, Origin, Scale, SpriteEffects.None, Depth);
+            spriteBatch.Draw(Image, Position, null, Color, Rotation, Origin, Scale, SpriteEffects.None, depth);
         }
 
     }

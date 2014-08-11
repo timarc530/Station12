@@ -8,32 +8,32 @@ namespace Station12.shared
 {
     public class Scene
     {
-        private List<SceneObject> objs;
+        private List<SceneElement> objs;
 
         public Color BackgroundColor { get; set; }
 
         public Scene()
         {
             this.BackgroundColor = Color.Orange;
-            this.objs = new List<SceneObject>();
+            this.objs = new List<SceneElement>();
         }
 
-        public void addObject(SceneObject obj)
+        public void addObject(SceneElement obj)
         {
             this.objs.Add(obj);
         }
 
-        public void update(GameTime time)
+        public virtual void update(GameTime time)
         {
-            foreach (SceneObject obj in objs)
+            foreach (SceneElement obj in objs)
             {
                 obj.update(time);
             }
         }
 
-        public void draw(SpriteBatch spriteBatch)
+        public virtual void draw(SpriteBatch spriteBatch)
         {
-            foreach (SceneObject obj in objs)
+            foreach (SceneElement obj in objs)
             {
                 obj.draw(spriteBatch);
             }

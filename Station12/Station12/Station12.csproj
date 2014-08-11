@@ -36,7 +36,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Game1.cs" />
+    <Compile Include="game\CameraScrollController.cs" />
     <Compile Include="game\GameScene.cs" />
+    <Compile Include="game\LevelGeometry.cs" />
+    <Compile Include="game\Room.cs" />
     <Compile Include="Helpers\Camera2D.cs" />
     <Compile Include="Helpers\KeyboardHelper.cs" />
     <Compile Include="Helpers\MouseHelper.cs" />
@@ -44,8 +47,9 @@
     <Compile Include="Menus\imp\PlayButton.cs" />
     <Compile Include="Menus\MenuScene.cs" />
     <Compile Include="shared\ColorPalette.cs" />
+    <Compile Include="shared\Drawable.cs" />
     <Compile Include="shared\Scene.cs" />
-    <Compile Include="shared\SceneObject.cs" />
+    <Compile Include="shared\SceneElement.cs" />
     <Compile Include="shared\SimpleMotionObject.cs" />
     <Compile Include="shared\Sprite.cs" />
     <Compile Include="Menus\imp\AboutButton.cs" />
@@ -56,6 +60,7 @@
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="shared\Updatable.cs" />
     <Compile Include="StationClientModel.cs" />
     <Compile Include="StationHostModel.cs" />
   </ItemGroup>
@@ -107,6 +112,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\stars1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\tempTile.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Icon.ico" />

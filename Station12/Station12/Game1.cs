@@ -30,6 +30,7 @@ namespace Station12
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         MouseHelper mouse;
+        KeyboardHelper keyboard;
         Camera2D camera;
         Random random;
 
@@ -74,7 +75,7 @@ namespace Station12
             host.IpAddress = "0.0.0.0";
             host.start();
             client = new BaseClient<StationClientModel>();
-            client.connectTo(SNetUtil.getLocalIp(), "loc");
+            //client.connectTo(SNetUtil.getLocalIp(), "loc");
 
             //random
             random = new Random();
@@ -86,6 +87,7 @@ namespace Station12
 
             gs = GameState.INGAME;
             mouse = new MouseHelper();
+            keyboard = new KeyboardHelper();
             IsMouseVisible = true;
             camera = new Camera2D(new Vector2(screenX, screenY));
 
@@ -114,7 +116,7 @@ namespace Station12
             
 
 
-            gameScene = new GameScene(Content);
+            gameScene = new GameScene(Content,screenX, screenY, camera, keyboard, mouse);
             gameScene.generateLevel();
 
            
@@ -151,6 +153,7 @@ namespace Station12
 
             camera.Update(gameTime);
             mouse.Update();
+            keyboard.Update();
             base.Update(gameTime);
         }
 
@@ -162,17 +165,23 @@ namespace Station12
         {
             GraphicsDevice.Clear(getActiveScene().BackgroundColor);
 
+            //draw menu
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.NonPremultiplied, SamplerState.AnisotropicWrap, DepthStencilState.None, RasterizerState.CullNone, null, camera.Translation);
-            menu.drawMenus(spriteBatch, camera);
-
-
-            getActiveScene().draw(spriteBatch);
-
+            {
+                menu.drawMenus(spriteBatch, camera);
+            }
             spriteBatch.End();
-            // TODO: Add your drawing code here
 
-            client.ClientModel.draw(spriteBatch);
 
+            //draw camera+scene
+            spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.NonPremultiplied, SamplerState.AnisotropicWrap, DepthStencilState.None, RasterizerState.CullNone, null, camera.Translation);
+            {
+                getActiveScene().draw(spriteBatch);
+               // client.ClientModel.draw(spriteBatch);
+            }
+            spriteBatch.End();
+            
+            
 
             base.Draw(gameTime);
         }
