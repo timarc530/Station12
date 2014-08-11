@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Station12.shared
 {
-    public class SimpleMotionObject
+    public class SimpleMotionObject : SceneObject
     {
         public delegate void MotionFunction(Sprite spr, GameTime time);
 
@@ -27,15 +27,17 @@ namespace Station12.shared
 
         public Sprite Sprite { get { return this.sprite; } }
 
-        public void update(GameTime time)
+
+
+
+        public override void update(GameTime time)
         {
             this.mFunc.Invoke(this.sprite, time);
         }
 
-        public void draw(SpriteBatch spriteBatch)
+        public override void draw(SpriteBatch spriteBatch)
         {
             this.sprite.draw(spriteBatch);
         }
-
     }
 }

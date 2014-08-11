@@ -8,21 +8,21 @@ namespace Station12.shared
 {
     class Scene
     {
-        private List<SimpleMotionObject> objs;
+        private List<SceneObject> objs;
 
         public Scene()
         {
-            this.objs = new List<SimpleMotionObject>();
+            this.objs = new List<SceneObject>();
         }
 
-        public void addObject(SimpleMotionObject obj)
+        public void addObject(SceneObject obj)
         {
             this.objs.Add(obj);
         }
 
         public void update(GameTime time)
         {
-            foreach (SimpleMotionObject obj in objs)
+            foreach (SceneObject obj in objs)
             {
                 obj.update(time);
             }
@@ -30,7 +30,7 @@ namespace Station12.shared
 
         public void draw(SpriteBatch spriteBatch)
         {
-            foreach (SimpleMotionObject obj in objs)
+            foreach (SceneObject obj in objs)
             {
                 obj.draw(spriteBatch);
             }

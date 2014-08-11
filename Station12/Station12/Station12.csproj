@@ -41,8 +41,10 @@
     <Compile Include="Helpers\MouseHelper.cs" />
     <Compile Include="Menus\imp\BackButton.cs" />
     <Compile Include="Menus\imp\PlayButton.cs" />
+    <Compile Include="Menus\MenuScene.cs" />
     <Compile Include="shared\ColorPalette.cs" />
     <Compile Include="shared\Scene.cs" />
+    <Compile Include="shared\SceneObject.cs" />
     <Compile Include="shared\SimpleMotionObject.cs" />
     <Compile Include="shared\Sprite.cs" />
     <Compile Include="Menus\imp\AboutButton.cs" />
