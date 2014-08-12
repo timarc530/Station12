@@ -81,9 +81,13 @@ namespace Station12
             random = new Random();
 
             //camZoom = 0.5f;
-            screenX = 1024;
-            screenY = 768;
+            //screenX = 1440;
+            //screenY = 900;
+            screenX = 1028;
+            screenY = 768; 
             fullScreen = false;
+            
+            
 
             gs = GameState.INGAME;
             mouse = new MouseHelper();
@@ -119,7 +123,8 @@ namespace Station12
             gameScene = new GameScene(Content,screenX, screenY, camera, keyboard, mouse);
             gameScene.generateLevel();
 
-           
+            MonoUtil.SetPosition( this.Window, new Point(0, 16));
+            camera.ZoomSet(.5f);
         }
 
         /// <summary>
@@ -165,6 +170,15 @@ namespace Station12
         {
             GraphicsDevice.Clear(getActiveScene().BackgroundColor);
 
+            //draw camera+scene
+            spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.NonPremultiplied, SamplerState.AnisotropicWrap, DepthStencilState.None, RasterizerState.CullNone, null, camera.Translation);
+            {
+                getActiveScene().draw(spriteBatch);
+               // client.ClientModel.draw(spriteBatch);
+            }
+            spriteBatch.End();
+
+
             //draw menu
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.NonPremultiplied);
             {
@@ -173,15 +187,6 @@ namespace Station12
             spriteBatch.End();
 
 
-            //draw camera+scene
-            spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.NonPremultiplied, SamplerState.AnisotropicWrap, DepthStencilState.None, RasterizerState.CullNone, null, camera.Translation);
-            {
-                getActiveScene().draw(spriteBatch);
-               // client.ClientModel.draw(spriteBatch);
-            }
-            spriteBatch.End();
-            
-            
 
             base.Draw(gameTime);
         }
@@ -198,6 +203,8 @@ namespace Station12
             }
             else return this.menuBackground; //todo, make better emergency default.
         }
+
+
 
     }
 }

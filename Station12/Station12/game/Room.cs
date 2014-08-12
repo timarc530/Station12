@@ -20,7 +20,7 @@ namespace Station12.game
 
         public Room(ContentManager Content)
         {
-            this.width = 5;
+            this.width = 8;
             this.height = 5;
             this.position = new Vector2(100, 100);
 
@@ -35,7 +35,7 @@ namespace Station12.game
 
                     if (x == 0 || y == 0 || x == width - 1 || y == height - 1)
                     {
-                        tile.Color = Color.Black;
+                        tile.Color = Color.Blue; //wall tile???
                     }
                     //tile.Depth = .5f;
                     this.tiles.Add(tile);
