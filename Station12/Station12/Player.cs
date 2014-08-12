@@ -3,13 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using SmallNet;
+using Station12.shared;
+
 namespace Station12
 {
-    class Player : DefaultPlayer
+    class Player : DefaultPlayer, Updatable, Drawable
     {
-        public Player(int id) : base(id)
+        private PlayerSettings settings;
+        
+
+
+        public Player(int id, PlayerSettings settings) : base(id)
         {
+            this.settings = settings;
         }
+
+        public PlayerSettings Settings { get { return this.settings; } }
 
         public override void draw(object drawdata)
         {
