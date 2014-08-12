@@ -18,6 +18,11 @@ namespace Station12.game
 
         private CameraScrollController cameraController;
 
+
+        //test add player
+        private Player player;
+
+
         public GameScene(ContentManager Content,int screenX, int screenY, Camera2D camera, KeyboardHelper keyboard, MouseHelper mouse)
             : base()
         {
@@ -26,6 +31,11 @@ namespace Station12.game
             this.keyboard = keyboard;
             this.mouse = mouse;
             this.cameraController = new CameraScrollController(camera,screenX, screenY, mouse, keyboard);
+
+            PlayerSettings settings = new PlayerSettings(Content.Load<Texture2D>("tempMan.png"));
+            this.player = new Player(1, settings);
+           
+            this.addObject(this.player);
         }
 
         public void generateLevel()

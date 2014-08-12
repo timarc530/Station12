@@ -37,7 +37,7 @@ namespace Station12.game
                     {
                         tile.Color = Color.Blue; //wall tile???
                     }
-                    //tile.Depth = .5f;
+                    tile.Depth = .5f;
                     this.tiles.Add(tile);
                 }
             }
