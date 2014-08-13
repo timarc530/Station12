@@ -6,11 +6,16 @@ using SmallNet;
 using Microsoft.Xna;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Content;
 
 namespace Station12
 {
     class StationClientModel : DefaultClientModel<Player>
     {
+
+        private Texture2D playerImage;
+        private Player me;
+
         public override void destroy()
         {
             //throw new NotImplementedException();
@@ -26,9 +31,21 @@ namespace Station12
             //throw new NotImplementedException();
         }
 
+        public void loadContent(ContentManager content)
+        {
+            this.playerImage = content.Load<Texture2D>("tempMan.png");
+        }
+
         public override void playerJoined(int id)
         {
-           // throw new NotImplementedException();
+            PlayerSettings settings = new PlayerSettings(this.playerImage);
+            Player plr = new Player(id, settings);
+
+            this.addPlayer(id, plr);
+            if (id == this.Id)
+            {
+                me = plr;
+            }
         }
 
         public override void update(Microsoft.Xna.Framework.GameTime time)
