@@ -8,13 +8,19 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
+using Station12.shared;
+using Station12.game;
+
 namespace Station12
 {
     class StationClientModel : DefaultClientModel<Player>
     {
 
-        private Texture2D playerImage;
+        public static Texture2D playerImage;
         private Player me;
+
+        private GameScene gameScene;
+
 
         public override void destroy()
         {
@@ -23,7 +29,10 @@ namespace Station12
 
         protected override void gotMessage(SMessage message)
         {
-           // throw new NotImplementedException();
+
+            Console.WriteLine("GOT:" + message.GetType());
+
+
         }
 
         public override void init()
@@ -31,14 +40,15 @@ namespace Station12
             //throw new NotImplementedException();
         }
 
-        public void loadContent(ContentManager content)
+        public void setGameScene(GameScene gameScene)
         {
-            this.playerImage = content.Load<Texture2D>("tempMan.png");
+            this.gameScene = gameScene;
+           
         }
 
         public override void playerJoined(int id)
         {
-            PlayerSettings settings = new PlayerSettings(this.playerImage);
+            PlayerSettings settings = new PlayerSettings(playerImage);
             Player plr = new Player(id, settings);
 
             this.addPlayer(id, plr);
@@ -50,7 +60,7 @@ namespace Station12
 
         public override void update(Microsoft.Xna.Framework.GameTime time)
         {
-            //throw new NotImplementedException();
+            
         }
 
         public override bool validateMessage(SMessage message)
@@ -62,6 +72,14 @@ namespace Station12
 
         public void draw(SpriteBatch spriteBatch)
         {
+
+            //if I exist...
+            if (me != null)
+            {
+                me.draw(spriteBatch);
+            }
+            gameScene.draw(spriteBatch);
+
         }
     }
 }

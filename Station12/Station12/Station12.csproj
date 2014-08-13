@@ -39,6 +39,7 @@
     <Compile Include="game\CameraScrollController.cs" />
     <Compile Include="game\GameScene.cs" />
     <Compile Include="game\LevelGeometry.cs" />
+    <Compile Include="game\messages\LevelDataMsg.cs" />
     <Compile Include="game\Room.cs" />
     <Compile Include="Helpers\Camera2D.cs" />
     <Compile Include="Helpers\KeyboardHelper.cs" />

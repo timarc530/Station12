@@ -27,22 +27,25 @@ namespace Station12.game
         private LevelGeometry levelGeo;
 
 
-        public LevelGeometry LevelGeometry { get { return this.levelGeo; } }
+        public LevelGeometry LevelGeometry { get { return this.levelGeo; } set { this.setLevel(value); } }
 
 
         public GameScene(ContentManager content,int screenX, int screenY, Camera2D camera, KeyboardHelper keyboard, MouseHelper mouse)
             : base()
         {
             this.camera = camera;
-            this.content = Content;
+            this.content = content;
             this.keyboard = keyboard;
             this.mouse = mouse;
             this.cameraController = new CameraScrollController(camera,screenX, screenY, mouse, keyboard);
-
-            PlayerSettings settings = new PlayerSettings(Content.Load<Texture2D>("tempMan.png"));
-          
+            
+           
         }
 
+        /// <summary>
+        /// Run by a host to create a level.
+        /// </summary>
+        /// <returns></returns>
         public LevelGeometry generateLevel()
         {
             //generate a start room
@@ -50,6 +53,17 @@ namespace Station12.game
             this.addObject(level);
             this.levelGeo = level;
             return level;
+        }
+        
+        /// <summary>
+        /// Run by clients to set the level
+        /// </summary>
+        /// <param name="levelGeo"></param>
+        /// <returns></returns>
+        public LevelGeometry setLevel(LevelGeometry levelGeo)
+        {
+            this.levelGeo = levelGeo;
+            return levelGeo;
         }
 
         public override void update(GameTime time)

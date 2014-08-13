@@ -44,6 +44,12 @@ namespace Station12
 
         #endregion
 
+
+
+        /* -----------------------------------------------------------
+         * HARD CODED TO RUN A HOST AND CONNECT A CLIENT TO LOCAL-HOST
+         * -----------------------------------------------------------
+         */
         #region snet
         BaseHost<StationClientModel, StationHostModel> host;
         BaseClient<StationClientModel> client;
@@ -75,8 +81,7 @@ namespace Station12
             host.IpAddress = "0.0.0.0";
             host.start();
             client = new BaseClient<StationClientModel>();
-            //client.connectTo(SNetUtil.getLocalIp(), "loc");
-
+            
             //random
             random = new Random();
 
@@ -123,8 +128,20 @@ namespace Station12
             gameScene = new GameScene(Content,screenX, screenY, camera, keyboard, mouse);
             gameScene.generateLevel();
 
+            this.host.Model.setGameScene(gameScene);
+
             MonoUtil.SetPosition( this.Window, new Point(0, 16));
             camera.ZoomSet(.5f);
+
+
+            StationClientModel.playerImage = Content.Load<Texture2D>("tempMan.png");
+            client.connectTo(SNetUtil.getLocalIp(), "loc");
+
+            client.NewModel += (s, h) => {
+                client.ClientModel.setGameScene(new GameScene(Content, screenX, screenY, camera, keyboard, mouse)); //the client is going to have a different gamescene object.
+            };
+
+
         }
 
         /// <summary>
@@ -147,18 +164,28 @@ namespace Station12
             if (gs == GameState.EXIT)
                 Exit();
 
+            //run menu controls
             if (mouse.LeftButtonNew())
                 if (menu.whatPanel(mouse.Location) != null)
                 {
                     gs = menu.whatPanel(mouse.Location).onLeftClick(gs);
                 }
 
+            //update the scene
             getActiveScene().update(gameTime);
+            
+            
+            //update the net models
+            client.update(gameTime);
+            host.update(gameTime);
 
 
+            //update utilities
             camera.Update(gameTime);
             mouse.Update();
             keyboard.Update();
+
+
             base.Update(gameTime);
         }
 
@@ -173,8 +200,11 @@ namespace Station12
             //draw camera+scene
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.NonPremultiplied, SamplerState.AnisotropicWrap, DepthStencilState.None, RasterizerState.CullNone, null, camera.Translation);
             {
-                getActiveScene().draw(spriteBatch);
-               // client.ClientModel.draw(spriteBatch);
+                //getActiveScene().draw(spriteBatch);
+                if (client.ClientModel != null)
+                {
+                    client.ClientModel.draw(spriteBatch);
+                }
             }
             spriteBatch.End();
 
