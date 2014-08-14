@@ -56,7 +56,7 @@ namespace Station12
             //we should send them the level geo
             
             LevelDataMsg ldm = new LevelDataMsg(this, this.gameScene.LevelGeometry);
-            StringMessage test = new StringMessage(this, "test");
+            Console.WriteLine("SENT: " + ldm.getLevelGeometry());
             this.clientIdTable[id].sendMessage(ldm);
         }
     }

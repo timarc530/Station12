@@ -28,9 +28,12 @@ namespace Station12.game
         public float CameraZoomMax { get; set; }
         public int ScreenScrollingDistance { get; set; }
 
+        public Boolean MouseScrollOn { get; set; }
+
 
         public CameraScrollController(Camera2D camera,int screenX, int screenY, MouseHelper mouse, KeyboardHelper keyboard)
         {
+            MouseScrollOn = false;
             this.camera = camera;
             this.mouse = mouse;
             this.keyboard = keyboard;
@@ -71,25 +74,28 @@ namespace Station12.game
             }
             
             //mouse scrolling
-            if (this.mouse.Location.X > (screenX - ScreenScrollingDistance))
+            if (MouseScrollOn)
             {
-                float mouseRatio = (this.mouse.Location.X - (screenX - ScreenScrollingDistance))/(float)ScreenScrollingDistance;
-                cameraAcceleration += Vector2.UnitX * mouseRatio;
-            }
-            if (this.mouse.Location.X < ScreenScrollingDistance)
-            {
-                float mouseRatio = (ScreenScrollingDistance-this.mouse.Location.X) / (float)ScreenScrollingDistance;
-                cameraAcceleration -= Vector2.UnitX * mouseRatio;
-            }
-            if (this.mouse.Location.Y > (screenY - ScreenScrollingDistance))
-            {
-                float mouseRatio = (this.mouse.Location.Y - (screenY - ScreenScrollingDistance)) / (float)ScreenScrollingDistance;
-                cameraAcceleration += Vector2.UnitY * mouseRatio;
-            }
-            if (this.mouse.Location.Y < ScreenScrollingDistance)
-            {
-                float mouseRatio = (ScreenScrollingDistance - this.mouse.Location.Y) / (float)ScreenScrollingDistance;
-                cameraAcceleration -= Vector2.UnitY * mouseRatio;
+                if (this.mouse.Location.X > (screenX - ScreenScrollingDistance))
+                {
+                    float mouseRatio = (this.mouse.Location.X - (screenX - ScreenScrollingDistance)) / (float)ScreenScrollingDistance;
+                    cameraAcceleration += Vector2.UnitX * mouseRatio;
+                }
+                if (this.mouse.Location.X < ScreenScrollingDistance)
+                {
+                    float mouseRatio = (ScreenScrollingDistance - this.mouse.Location.X) / (float)ScreenScrollingDistance;
+                    cameraAcceleration -= Vector2.UnitX * mouseRatio;
+                }
+                if (this.mouse.Location.Y > (screenY - ScreenScrollingDistance))
+                {
+                    float mouseRatio = (this.mouse.Location.Y - (screenY - ScreenScrollingDistance)) / (float)ScreenScrollingDistance;
+                    cameraAcceleration += Vector2.UnitY * mouseRatio;
+                }
+                if (this.mouse.Location.Y < ScreenScrollingDistance)
+                {
+                    float mouseRatio = (ScreenScrollingDistance - this.mouse.Location.Y) / (float)ScreenScrollingDistance;
+                    cameraAcceleration -= Vector2.UnitY * mouseRatio;
+                }
             }
 
             //mouse zoom

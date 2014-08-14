@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Content;
 
 using Station12.shared;
 using Station12.game;
+using Station12.game.messages;
 
 namespace Station12
 {
@@ -30,8 +31,12 @@ namespace Station12
         protected override void gotMessage(SMessage message)
         {
 
-            Console.WriteLine("GOT:" + message.GetType());
-
+            if (message is LevelDataMsg)
+            {
+                LevelDataMsg msg = (LevelDataMsg)message;
+                Console.WriteLine("GOT A LEVEL MESSAGE");
+                Console.WriteLine("RECIEVED: " + msg.getLevelGeometry());
+            }
 
         }
 

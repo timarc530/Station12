@@ -14,7 +14,9 @@ namespace Station12.game
     class LevelGeometry : SceneElement
     {
 
-        Room testRoom;
+        public Room testRoom;
+
+        
 
         public LevelGeometry(ContentManager Content)
         {
@@ -23,14 +25,16 @@ namespace Station12.game
 
         }
 
+
+
         public void update(GameTime time)
         {
-            testRoom.update(time);
+           // testRoom.update(time);
         }
 
         public void draw(SpriteBatch spriteBatch)
         {
-            testRoom.draw(spriteBatch);
+           // testRoom.draw(spriteBatch);
         }
     }
 }

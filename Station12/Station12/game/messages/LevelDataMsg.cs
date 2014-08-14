@@ -9,25 +9,22 @@ namespace Station12.game.messages
 {
     class LevelDataMsg : SMessage
     {
-       // private LevelGeometry level;
-
-        int x;
-
-        public LevelDataMsg() { }
-
+        private LevelGeometry level;
+        private int testVar;
+        public LevelDataMsg() :base() { }
+        
         public LevelDataMsg(Id id, LevelGeometry levelGeometry) : base(id)
         {
-            this.x = 5;
-           // this.level = levelGeometry;
+            this.testVar = 234;
+            this.level = levelGeometry;
         }
-
-        public int getX()
+        public LevelGeometry getLevelGeometry()
         {
-            return this.x;
+            return this.level;
         }
-        //public LevelGeometry getLevelGeometry()
-        //{
-        //    return this.level;
-        //}
+        public int getTest()
+        {
+            return testVar;
+        }
     }
 }
